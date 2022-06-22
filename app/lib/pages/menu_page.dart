@@ -1,3 +1,4 @@
+import 'package:app/pages/gestionar_eventos.dart';
 import 'package:app/widgets/appbar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -24,8 +25,8 @@ class MenuPage extends StatelessWidget {
               child: ListTile(
                 trailing: Icon(MdiIcons.humanChild),
                 title: Text('Gestionar niños'),
-                subtitle:
-                    Text('Actualizar información de cada niño del jardín'),
+                subtitle: Text(
+                    'Actualizar información de los niños que se educan en el jardín'),
               ),
               onTap: () {
                 irA(context, GestionarNinos());
@@ -51,6 +52,17 @@ class MenuPage extends StatelessWidget {
               ),
               onTap: () {
                 irA(context, GestionarTias());
+              },
+            ),
+            GestureDetector(
+              child: ListTile(
+                trailing: Icon(MdiIcons.history),
+                title: Text('Historial de eventos'),
+                subtitle: Text(
+                    'Registro de eventos asociados a cada niño del jardín'),
+              ),
+              onTap: () {
+                irA(context, GestionarEventos());
               },
             ),
             GestureDetector(

@@ -31,6 +31,38 @@ class _GestionarNinosState extends State<GestionarNinos> {
             ),
             onTap: () {},
           ),
+          GestureDetector(
+            child: Container(
+              child: Image(
+                image: AssetImage('lib/img/foto2.jpg'),
+              ),
+            ),
+            onTap: () {},
+          ),
+          GestureDetector(
+            child: Container(
+              child: Image(
+                image: AssetImage('lib/img/foto3.jpg'),
+              ),
+            ),
+            onTap: () {},
+          ),
+          GestureDetector(
+            child: Container(
+              child: Image(
+                image: AssetImage('lib/img/foto4.jpg'),
+              ),
+            ),
+            onTap: () {},
+          ),
+          GestureDetector(
+            child: Container(
+              child: Image(
+                image: AssetImage('lib/img/foto5.jpg'),
+              ),
+            ),
+            onTap: () {},
+          ),
           ElevatedButton(
             onPressed: () {},
             child: Container(

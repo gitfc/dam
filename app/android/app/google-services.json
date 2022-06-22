@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "891304796881",
+    "project_id": "dam3-8b6e0",
+    "storage_bucket": "dam3-8b6e0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:891304796881:android:aa25badd5fe2db9caa9bf0",
+        "android_client_info": {
+          "package_name": "app.parvulos.flutter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "891304796881-lhpbvk7630t7v9ot9nbq2lkmtu6ljgf8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDBjZxNCiSpBldG6-FnQ7KXmHuqM1FI-50"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "891304796881-lhpbvk7630t7v9ot9nbq2lkmtu6ljgf8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

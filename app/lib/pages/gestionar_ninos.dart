@@ -21,17 +21,26 @@ class _GestionarNinosState extends State<GestionarNinos> {
         padding: EdgeInsets.all(5),
         crossAxisSpacing: 10,
         mainAxisSpacing: 10,
-        crossAxisCount: 2,
-        children: List.generate(
-          20,
-          (index) {
-            return Center(
-              child: Text(
-                'Niño ${index + 1}',
+        crossAxisCount: 3,
+        children: [
+          GestureDetector(
+            child: Container(
+              child: Image(
+                image: AssetImage('lib/img/foto1.jpg'),
               ),
-            );
-          },
-        ),
+            ),
+            onTap: () {},
+          ),
+          ElevatedButton(
+            onPressed: () {},
+            child: Container(
+              child: Text(
+                '+',
+                style: TextStyle(fontSize: 100),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

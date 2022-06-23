@@ -1,3 +1,4 @@
+import 'package:app/pages/menu_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'pages/login_page.dart';
@@ -22,7 +23,8 @@ class MyApp extends StatelessWidget {
           buttonColor: Colors.pink,
         ),
       ),
-      home: LoginPage(),
+      //home: LoginPage(),
+      home: MenuPage(),
     );
   }
 }

@@ -20,7 +20,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::apiResource('/nino',NinoController::class);
-Route::get('/nino/clase',[NinoController::class,'porClase']);
 Route::apiResource('/tia',TiaController::class);
 Route::apiResource('/evento',EventoController::class);
 Route::apiResource('/nivel',NivelController::class);

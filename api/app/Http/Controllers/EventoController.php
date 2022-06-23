@@ -14,7 +14,7 @@ class EventoController extends Controller
      */
     public function index()
     {
-        //
+        return Evento::orderBy('fecha', 'desc')->get();
     }
 
     /**
@@ -35,7 +35,12 @@ class EventoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $evento = new Evento();
+        $evento->id = $request->id;
+        $evento->descripcion = $request->descripcion;
+        $evento->fecha = $request->fecha;
+        $evento->rut_nino = $request->rut_nino;
+        $evento->save();
     }
 
     /**

@@ -5,7 +5,7 @@ import 'dart:convert';
 class JardinProvider {
   final String api = 'http://10.0.2.2:8000/api';
 
-  Future<List<dynamic>> getData(String table) async {
+  Future<List<dynamic>> getTable(String table) async {
     var uri = Uri.parse('$api/$table');
     var respuesta = await http.get(uri);
 
@@ -16,7 +16,7 @@ class JardinProvider {
     }
   }
 
-  Future<LinkedHashMap<String, dynamic>> getColumn(
+  Future<LinkedHashMap<String, dynamic>> getData(
       String table, String id) async {
     var uri = Uri.parse('$api/$table/$id');
     var respuesta = await http.get(uri);

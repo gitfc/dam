@@ -14,7 +14,7 @@ class NivelController extends Controller
      */
     public function index()
     {
-        //
+        return Nivel::orderBy('id')->get();
     }
 
     /**
@@ -46,7 +46,7 @@ class NivelController extends Controller
      */
     public function show(Nivel $nivel)
     {
-        //
+        return $nivel;
     }
 
     /**

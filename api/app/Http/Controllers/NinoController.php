@@ -57,7 +57,13 @@ class NinoController extends Controller
      */
     public function edit(Nino $nino)
     {
-        //
+        $nino = new Nino();
+        $nino->rut = $request->rut;
+        $nino->nombre = $request->nombre;
+        $nino->nombre_apoderado = $request->nombre_apoderado;
+        $nino->telefono_emergencia = $request->telefono_emergencia;
+        $nino->id_nivel = $request->id_nivel;
+        $nino->save();
     }
 
     /**

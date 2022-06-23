@@ -27,4 +27,9 @@ class JardinProvider {
       return new LinkedHashMap();
     }
   }
+
+  Future<LinkedHashMap<String, dynamic>> editarNino(int rut, int rut_nuevo,
+      String nombre, String apoderado, int telefono, int id_nivel) {
+    ///
+  }
 }

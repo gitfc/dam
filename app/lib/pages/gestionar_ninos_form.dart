@@ -23,7 +23,7 @@ class _GestionarNinosFormState extends State<GestionarNinosForm> {
   TextEditingController nombreCtrl = TextEditingController();
   TextEditingController apoderadoCtrl = TextEditingController();
   TextEditingController telefonoCtrl = TextEditingController();
-  TextEditingController nivelCtrl = TextEditingController();
+  String selected = "";
   final formKey = GlobalKey<FormState>();
 
   @override
@@ -48,21 +48,20 @@ class _GestionarNinosFormState extends State<GestionarNinosForm> {
             nombreCtrl.text = nino["nombre"];
             apoderadoCtrl.text = nino["nombre_apoderado"];
             telefonoCtrl.text = nino["telefono_emergencia"].toString();
-            //nivelCtrl.text = nino["id_nivel"];
 
             return Form(
               key: formKey,
               child: ListView(
                 children: [
                   GestureDetector(
-                    onTap: () async {
+                    /*onTap: () async {
                       FilePickerResult? result = await FilePicker.platform
                           .pickFiles(type: FileType.image);
 
                       if (result != null) {
-                        String file = File(result.files.first.path);
+                        File file = File(result.files.first.path);
                       }
-                    },
+                    },*/
                     child: Center(
                       child: Stack(
                         children: [
@@ -149,6 +148,7 @@ class _GestionarNinosFormState extends State<GestionarNinosForm> {
                       }
                       String selected = "${nino["id_nivel"]}";
                       return DropdownButtonFormField<String>(
+                        key: nivelCtrl,
                         hint: Text("Nivel"),
                         items: snap.data.map<DropdownMenuItem<String>>((nivel) {
                           return DropdownMenuItem<String>(
@@ -166,7 +166,16 @@ class _GestionarNinosFormState extends State<GestionarNinosForm> {
                     },
                   ),
                   ElevatedButton(
-                    onPressed: () => null,
+                    onPressed: () {
+                      JardinProvider().editarNino(
+                        widget.rut,
+                        int.tryParse(rutCtrl.text),
+                        nombreCtrl.text,
+                        apoderadoCtrl.text,
+                        int.tryParse(telefonoCtrl.text),
+                        int.tryParse(selected),
+                      );
+                    },
                     child: Text(
                       'Guardar cambios',
                       style: TextStyle(

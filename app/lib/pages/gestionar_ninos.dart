@@ -1,3 +1,4 @@
+import 'package:app/providers/api.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -17,62 +18,44 @@ class _GestionarNinosState extends State<GestionarNinos> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: barra('Gestionar niños', context, false),
-      body: GridView.count(
-        padding: EdgeInsets.all(5),
-        crossAxisSpacing: 10,
-        mainAxisSpacing: 10,
-        crossAxisCount: 3,
-        children: [
-          GestureDetector(
-            child: Container(
-              child: Image(
-                image: AssetImage('lib/img/foto1.jpg'),
-              ),
+      body: FutureBuilder(
+        future: JardinProvider().getData("nino"),
+        builder: (context, AsyncSnapshot snap) {
+          if (!snap.hasData) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          return GridView.builder(
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 3,
+              mainAxisSpacing: 10,
+              crossAxisSpacing: 10,
+              //childAspectRatio: 2.0,
             ),
-            onTap: () {},
-          ),
-          GestureDetector(
-            child: Container(
-              child: Image(
-                image: AssetImage('lib/img/foto2.jpg'),
-              ),
-            ),
-            onTap: () {},
-          ),
-          GestureDetector(
-            child: Container(
-              child: Image(
-                image: AssetImage('lib/img/foto3.jpg'),
-              ),
-            ),
-            onTap: () {},
-          ),
-          GestureDetector(
-            child: Container(
-              child: Image(
-                image: AssetImage('lib/img/foto4.jpg'),
-              ),
-            ),
-            onTap: () {},
-          ),
-          GestureDetector(
-            child: Container(
-              child: Image(
-                image: AssetImage('lib/img/foto5.jpg'),
-              ),
-            ),
-            onTap: () {},
-          ),
-          ElevatedButton(
-            onPressed: () {},
-            child: Container(
-              child: Text(
-                '+',
-                style: TextStyle(fontSize: 100),
-              ),
-            ),
-          ),
-        ],
+            itemCount: snap.data.length,
+            itemBuilder: (context, i) {
+              /*return ElevatedButton(
+                  onPressed: () {},
+                  child: Container(
+                    child: Text(
+                      '+',
+                      style: TextStyle(fontSize: 100),
+                    ),
+                  ),
+                );*/
+              var nino = snap.data[i];
+              return GestureDetector(
+                child: Container(
+                  child: Image(
+                    image: AssetImage('lib/img/${nino["rut"]}.jpg'),
+                  ),
+                ),
+                onTap: () {},
+              );
+            },
+          );
+        },
       ),
     );
   }

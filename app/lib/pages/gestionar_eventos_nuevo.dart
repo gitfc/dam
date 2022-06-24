@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
+import '../providers/api.dart';
 import '../widgets/appbar.dart';
 
 class GestionarEventosNuevo extends StatefulWidget {
@@ -14,9 +15,16 @@ class GestionarEventosNuevo extends StatefulWidget {
 class GestionarEventosNuevoState extends State<GestionarEventosNuevo> {
   TextEditingController descripcionCtrl = TextEditingController();
   TextEditingController rutCtrl = TextEditingController();
+  TextEditingController fechaCtrl = TextEditingController();
   DateTime fechaEvento = DateTime.now();
 
   final formKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    super.initState();
+    fechaCtrl.text = DateFormat("yyyy-MM-dd").format(fechaEvento);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,30 +52,83 @@ class GestionarEventosNuevoState extends State<GestionarEventosNuevo> {
                 minLines: 5,
                 maxLines: 10,
               ),
-              Row(
-                children: [
-                  TextButton(
-                    onPressed: () {
-                      showDatePicker(
-                        context: context,
-                        lastDate: DateTime.now(),
-                        initialDate: DateTime.now(),
-                        firstDate: DateTime(2000),
-                        locale: Locale('es', 'ES'),
-                      ).then((fecha) {
-                        fechaEvento = fecha ?? fechaEvento;
-                      });
+              GestureDetector(
+                onTap: () {
+                  showDatePicker(
+                    context: context,
+                    initialDate: fechaEvento,
+                    firstDate: DateTime(2000),
+                    lastDate: DateTime.now(),
+                    locale: Locale('es', 'ES'),
+                  ).then(
+                    (fecha) {
+                      fechaCtrl.text = DateFormat("yyyy-MM-dd").format(fecha!);
+                      fechaEvento = fecha;
                     },
-                    child: Icon(MdiIcons.calendar),
+                  );
+                },
+                child: TextFormField(
+                  enabled: false,
+                  controller: fechaCtrl,
+                  decoration: InputDecoration(
+                    labelText: "Fecha",
+                    prefixIcon: Icon(MdiIcons.calendar),
                   ),
-                  Expanded(
-                    child: Text(
-                      DateFormat("yyyy-MM-dd").format(fechaEvento),
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                    ),
+                ),
+              ),
+              ElevatedButton(
+                onPressed: () async {
+                  /*var respuesta = JardinProvider().agregarEvento(
+                    
+                  );
+
+                  if (respuesta != null) {
+                    print("error");
+                    return;
+                  }*/
+
+                  Navigator.pop(context);
+                },
+                child: Text(
+                  'Agregar evento',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
                   ),
-                ],
+                ),
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                    (Set<MaterialState> states) {
+                      if (states.contains(MaterialState.pressed))
+                        return Color.fromARGB(255, 14, 62, 102);
+                      return Colors.blue; // Use the component's default.
+                    },
+                  ),
+                ),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text(
+                  'Cancelar',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                    (Set<MaterialState> states) {
+                      if (states.contains(MaterialState.pressed))
+                        return Color.fromARGB(255, 128, 28, 21);
+                      return Colors.red; // Use the component's default.
+                    },
+                  ),
+                  foregroundColor: MaterialStateProperty.resolveWith<Color>(
+                    (Set<MaterialState> states) {
+                      return Colors.white; // Use the component's default.
+                    },
+                  ),
+                ),
               ),
             ],
           ),

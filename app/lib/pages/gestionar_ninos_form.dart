@@ -216,12 +216,12 @@ class _GestionarNinosFormState extends State<GestionarNinosForm> {
                     onPressed: () {
                       JardinProvider().borrarNino(widget.rut).then(
                         (borrado) {
-                          if (borrado) {
-                            Navigator.pop(context);
-                            setState(() {});
-                          } else {
+                          /*if (borrado) {*/
+                          Navigator.pop(context);
+                          setState(() {});
+                          /*} else {
                             print("error borrando");
-                          }
+                          }*/
                         },
                       );
                     },

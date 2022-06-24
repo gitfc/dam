@@ -52,7 +52,7 @@ class JardinProvider {
     return json.decode(respuesta.body);
   }
 
-  Future<LinkedHashMap<String, dynamic>> editarNino(int rut, String nombre,
+  Future<LinkedHashMap<String, dynamic>> editarNino(String rut, String nombre,
       String apoderado, String telefono, String id_nivel, String foto) async {
     var uri = Uri.parse('$api/nino/$rut');
     var respuesta = await http.put(
@@ -75,7 +75,7 @@ class JardinProvider {
     return json.decode(respuesta.body);
   }
 
-  Future<bool> borrarNino(int rut) async {
+  Future<bool> borrarNino(String rut) async {
     var uri = Uri.parse('$api/nino/$rut');
     var respuesta = await http.delete(uri);
     return respuesta.statusCode == 200;

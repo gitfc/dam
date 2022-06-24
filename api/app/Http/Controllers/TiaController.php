@@ -14,7 +14,7 @@ class TiaController extends Controller
      */
     public function index()
     {
-        //
+        return Tia::orderBy('rut')->get();
     }
 
     /**

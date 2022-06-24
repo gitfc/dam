@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Nino;
 use Illuminate\Http\Request;
+use App\Http\Requests\NinoRequest;
 
 class NinoController extends Controller
 {
@@ -18,24 +19,20 @@ class NinoController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(NinoRequest $request)
     {
-        //
+        $nino = new Nino();
+        $nino->rut = $request->rut;
+        $nino->nombre = $request->nombre;
+        $nino->nombre_apoderado = $request->nombre_apoderado;
+        $nino->telefono_emergencia = $request->telefono_emergencia;
+        $nino->id_nivel = $request->id_nivel;
+        $nino->save();
     }
 
     /**
@@ -57,13 +54,7 @@ class NinoController extends Controller
      */
     public function edit(Nino $nino)
     {
-        $nino = new Nino();
-        $nino->rut = $request->rut;
-        $nino->nombre = $request->nombre;
-        $nino->nombre_apoderado = $request->nombre_apoderado;
-        $nino->telefono_emergencia = $request->telefono_emergencia;
-        $nino->id_nivel = $request->id_nivel;
-        $nino->save();
+        //
     }
 
     /**
@@ -73,9 +64,14 @@ class NinoController extends Controller
      * @param  \App\Models\Nino  $nino
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Nino $nino)
+    public function update(NinoRequest $request, Nino $nino)
     {
-        //
+        //$nino->rut = $request->rut;
+        $nino->nombre = $request->nombre;
+        $nino->nombre_apoderado = $request->nombre_apoderado;
+        $nino->telefono_emergencia = $request->telefono_emergencia;
+        $nino->id_nivel = $request->id_nivel;
+        $nino->save();
     }
 
     /**
@@ -86,6 +82,6 @@ class NinoController extends Controller
      */
     public function destroy(Nino $nino)
     {
-        //
+        $nino->delete();
     }
 }

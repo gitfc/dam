@@ -28,8 +28,55 @@ class JardinProvider {
     }
   }
 
-  Future<LinkedHashMap<String, dynamic>> editarNino(int rut, int rut_nuevo,
-      String nombre, String apoderado, int telefono, int id_nivel) {
-    ///
+  Future<LinkedHashMap<String, dynamic>> agregarNino(String rut, String nombre,
+      String apoderado, String telefono, String id_nivel, String foto) async {
+    var uri = Uri.parse('$api/nino');
+    var respuesta = await http.post(
+      uri,
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Accept': 'application/json'
+      },
+      body: jsonEncode(
+        <String, dynamic>{
+          'rut': int.tryParse(rut),
+          'nombre': nombre,
+          'nombre_apoderado': apoderado,
+          'telefono_emergencia': int.tryParse(telefono),
+          'id_nivel': int.tryParse(id_nivel),
+        },
+      ),
+    );
+
+    return json.decode(respuesta.body);
+  }
+
+  Future<LinkedHashMap<String, dynamic>> editarNino(int rut, String nombre,
+      String apoderado, String telefono, String id_nivel, String foto) async {
+    var uri = Uri.parse('$api/nino/$rut');
+    var respuesta = await http.put(
+      uri,
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Accept': 'application/json'
+      },
+      body: jsonEncode(
+        <String, dynamic>{
+          'rut': rut,
+          'nombre': nombre,
+          'nombre_apoderado': apoderado,
+          'telefono_emergencia': int.tryParse(telefono),
+          'id_nivel': int.tryParse(id_nivel),
+        },
+      ),
+    );
+
+    return json.decode(respuesta.body);
+  }
+
+  Future<bool> borrarNino(int rut) async {
+    var uri = Uri.parse('$api/nino/$rut');
+    var respuesta = await http.delete(uri);
+    return respuesta.statusCode == 200;
   }
 }

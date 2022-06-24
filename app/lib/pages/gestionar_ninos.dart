@@ -1,4 +1,5 @@
 import 'package:app/pages/gestionar_ninos_form.dart';
+import 'package:app/pages/gestionar_ninos_nuevo.dart';
 import 'package:app/providers/api.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -36,17 +37,26 @@ class _GestionarNinosState extends State<GestionarNinos> {
                 crossAxisSpacing: 5,
                 childAspectRatio: 1 / 1.3,
               ),
-              itemCount: snap.data.length,
+              itemCount: snap.data.length + 1,
               itemBuilder: (context, i) {
-                /*return ElevatedButton(
-                    onPressed: () {},
+                if (i == 0) {
+                  return ElevatedButton(
+                    onPressed: () {
+                      MaterialPageRoute route = MaterialPageRoute(
+                        builder: (context) => GestionarNinosNuevo(),
+                      );
+                      Navigator.push(context, route);
+                    },
                     child: Container(
                       child: Text(
                         '+',
                         style: TextStyle(fontSize: 100),
                       ),
                     ),
-                  );*/
+                  );
+                }
+                // ignore: dead_code
+                i = i - 1;
                 var nino = snap.data[i];
                 return GestureDetector(
                   child: Container(

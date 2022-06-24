@@ -13,7 +13,7 @@ class NinoRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,11 @@ class NinoRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'rut' => 'unique:nino|required|numeric|integer',
+            'nombre' => 'required|alpha',
+            'nombre_apoderado' => 'required|alpha',
+            'telefono_emergencia' => 'required|numeric',
+            'id_nivel' => 'required|exists:nivel,id',
         ];
     }
 }

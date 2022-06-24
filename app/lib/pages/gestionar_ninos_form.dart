@@ -1,8 +1,5 @@
-import 'dart:html';
-
 import 'package:app/providers/api.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
@@ -25,6 +22,8 @@ class _GestionarNinosFormState extends State<GestionarNinosForm> {
   TextEditingController telefonoCtrl = TextEditingController();
   String selected = "";
   final formKey = GlobalKey<FormState>();
+  int _stack = 0;
+  bool _visible = false;
 
   @override
   Widget build(BuildContext context) {
@@ -49,32 +48,56 @@ class _GestionarNinosFormState extends State<GestionarNinosForm> {
             apoderadoCtrl.text = nino["nombre_apoderado"];
             telefonoCtrl.text = nino["telefono_emergencia"].toString();
 
+            AssetImage fotoNino = AssetImage('lib/img/non.jpg');
+            try {
+              AssetImage fotoNino = AssetImage('lib/img/${nino["rut"]}.jpg');
+              fotoNino.toString();
+            } catch (ex) {
+              print("Niño no tiene foto.");
+            }
+            Image fotoNinoNueva;
+
             return Form(
               key: formKey,
               child: ListView(
                 children: [
                   GestureDetector(
-                    /*onTap: () async {
+                    onTap: () async {
                       FilePickerResult? result = await FilePicker.platform
                           .pickFiles(type: FileType.image);
 
                       if (result != null) {
-                        File file = File(result.files.first.path);
+                        ImageStream file = result.files as ImageStream;
+                        //image = file as Image;
+                        //_visible = true;
+                        setState(() {});
                       }
-                    },*/
+                    },
                     child: Center(
                       child: Stack(
                         children: [
                           Container(
                             decoration: BoxDecoration(
                               image: DecorationImage(
-                                image: AssetImage('lib/img/${nino["rut"]}.jpg'),
+                                image: fotoNino,
                                 fit: BoxFit.scaleDown,
                               ),
                             ),
                             alignment: Alignment.bottomLeft,
                             width: 250,
                             height: 250,
+                          ),
+                          AnimatedOpacity(
+                            opacity: _visible ? 1 : 0,
+                            duration: Duration(milliseconds: 600),
+                            child: Container(
+                              width: 250,
+                              height: 250,
+                              child: null,
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.all(5),
                             child: Container(
                               width: 30,
                               height: 30,
@@ -94,7 +117,7 @@ class _GestionarNinosFormState extends State<GestionarNinosForm> {
                       ),
                     ),
                   ),
-                  FocusScope(
+                  /*FocusScope(
                     onFocusChange: (value) {
                       rutCtrl.text =
                           rutCtrl.text.replaceFirst(RegExp(r"-"), "");
@@ -103,16 +126,17 @@ class _GestionarNinosFormState extends State<GestionarNinosForm> {
                               "-" +
                               rutCtrl.text.substring(rutCtrl.text.length - 1);
                     },
-                    child: TextFormField(
-                      controller: rutCtrl,
-                      keyboardType: TextInputType.number,
-                      decoration: InputDecoration(
-                        labelText: "RUT",
-                        prefixIcon: Icon(MdiIcons.idCard),
-                      ),
-                      //enabled: false,
+                    child:*/
+                  TextFormField(
+                    controller: rutCtrl,
+                    keyboardType: TextInputType.number,
+                    decoration: InputDecoration(
+                      labelText: "RUT",
+                      prefixIcon: Icon(MdiIcons.idCard),
                     ),
+                    enabled: false,
                   ),
+                  /*),*/
                   TextFormField(
                     controller: nombreCtrl,
                     decoration: InputDecoration(
@@ -148,7 +172,7 @@ class _GestionarNinosFormState extends State<GestionarNinosForm> {
                       }
                       String selected = "${nino["id_nivel"]}";
                       return DropdownButtonFormField<String>(
-                        key: nivelCtrl,
+                        //key: nivelCtrl,
                         hint: Text("Nivel"),
                         items: snap.data.map<DropdownMenuItem<String>>((nivel) {
                           return DropdownMenuItem<String>(
@@ -169,11 +193,11 @@ class _GestionarNinosFormState extends State<GestionarNinosForm> {
                     onPressed: () {
                       JardinProvider().editarNino(
                         widget.rut,
-                        int.tryParse(rutCtrl.text),
-                        nombreCtrl.text,
-                        apoderadoCtrl.text,
-                        int.tryParse(telefonoCtrl.text),
-                        int.tryParse(selected),
+                        nombreCtrl.text.trim(),
+                        apoderadoCtrl.text.trim(),
+                        telefonoCtrl.text.trim(),
+                        selected.trim(),
+                        "",
                       );
                     },
                     child: Text(
@@ -193,7 +217,9 @@ class _GestionarNinosFormState extends State<GestionarNinosForm> {
                     ),
                   ),
                   ElevatedButton(
-                    onPressed: () => null,
+                    onPressed: () {
+                      JardinProvider().borrarNino(widget.rut);
+                    },
                     child: Text(
                       'Eliminar niño',
                       style: TextStyle(

@@ -41,6 +41,7 @@ class JardinProvider {
         <String, dynamic>{
           'rut': int.tryParse(rut),
           'nombre': nombre,
+          'foto': null,
           'nombre_apoderado': apoderado,
           'telefono_emergencia': int.tryParse(telefono),
           'id_nivel': int.tryParse(id_nivel),

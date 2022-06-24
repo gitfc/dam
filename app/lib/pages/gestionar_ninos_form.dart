@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:app/providers/api.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -48,22 +50,13 @@ class _GestionarNinosFormState extends State<GestionarNinosForm> {
             apoderadoCtrl.text = nino["nombre_apoderado"];
             telefonoCtrl.text = nino["telefono_emergencia"].toString();
 
-            AssetImage fotoNino = AssetImage('lib/img/non.jpg');
-            try {
-              AssetImage fotoNino = AssetImage('lib/img/${nino["rut"]}.jpg');
-              fotoNino.toString();
-            } catch (ex) {
-              print("Niño no tiene foto.");
-            }
-            Image fotoNinoNueva;
-
             return Form(
               key: formKey,
               child: ListView(
                 children: [
                   GestureDetector(
                     onTap: () async {
-                      FilePickerResult? result = await FilePicker.platform
+                      /*FilePickerResult? result = await FilePicker.platform
                           .pickFiles(type: FileType.image);
 
                       if (result != null) {
@@ -71,7 +64,7 @@ class _GestionarNinosFormState extends State<GestionarNinosForm> {
                         //image = file as Image;
                         //_visible = true;
                         setState(() {});
-                      }
+                      }*/
                     },
                     child: Center(
                       child: Stack(
@@ -79,7 +72,10 @@ class _GestionarNinosFormState extends State<GestionarNinosForm> {
                           Container(
                             decoration: BoxDecoration(
                               image: DecorationImage(
-                                image: fotoNino,
+                                image: nino["foto"].toString().isEmpty
+                                    ? AssetImage('lib/img/non.jpg')
+                                    : AssetImage('lib/img/non.jpg'),
+                                //: MemoryImage(base64Decode("${nino["foto"]}")),
                                 fit: BoxFit.scaleDown,
                               ),
                             ),
@@ -218,7 +214,16 @@ class _GestionarNinosFormState extends State<GestionarNinosForm> {
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      JardinProvider().borrarNino(widget.rut);
+                      JardinProvider().borrarNino(widget.rut).then(
+                        (borrado) {
+                          if (borrado) {
+                            Navigator.pop(context);
+                            setState(() {});
+                          } else {
+                            print("error borrando");
+                          }
+                        },
+                      );
                     },
                     child: Text(
                       'Eliminar niño',

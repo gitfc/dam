@@ -3,6 +3,7 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 
 import '../providers/api.dart';
 import '../widgets/appbar.dart';
+import 'gestionar_eventos_nuevo.dart';
 
 class GestionarEventos extends StatefulWidget {
   GestionarEventos({Key? key}) : super(key: key);
@@ -54,6 +55,16 @@ class _GestionarEventosState extends State<GestionarEventos> {
             ),
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          MaterialPageRoute route = MaterialPageRoute(
+            builder: (context) => GestionarEventosNuevo(),
+          );
+          Navigator.push(context, route);
+        },
+        backgroundColor: Colors.red,
+        child: Icon(MdiIcons.file),
       ),
     );
   }

@@ -153,8 +153,8 @@ class _GestionarNinosNuevoState extends State<GestionarNinosNuevo> {
                 },
               ),
               ElevatedButton(
-                onPressed: () {
-                  JardinProvider().agregarNino(
+                onPressed: () async {
+                  var respuesta = JardinProvider().agregarNino(
                     rutCtrl.text.trim(),
                     nombreCtrl.text.trim(),
                     apoderadoCtrl.text.trim(),
@@ -162,6 +162,13 @@ class _GestionarNinosNuevoState extends State<GestionarNinosNuevo> {
                     selected.trim(),
                     "",
                   );
+
+                  if (respuesta != null) {
+                    print("error");
+                    return;
+                  }
+
+                  Navigator.pop(context);
                 },
                 child: Text(
                   'Agregar niño',

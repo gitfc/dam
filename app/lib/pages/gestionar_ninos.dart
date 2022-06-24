@@ -62,7 +62,7 @@ class _GestionarNinosState extends State<GestionarNinos> {
                   child: Container(
                     decoration: BoxDecoration(
                       image: DecorationImage(
-                        image: AssetImage('lib/img/${nino["rut"]}.jpg'),
+                        image: AssetImage('lib/img/non.jpg'),
                         fit: BoxFit.cover,
                       ),
                     ),

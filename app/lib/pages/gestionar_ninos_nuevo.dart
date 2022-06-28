@@ -1,8 +1,11 @@
+import 'dart:convert';
+
 import 'package:app/providers/api.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
+import '../providers/image_provider.dart';
 import '../widgets/appbar.dart';
 
 class GestionarNinosNuevo extends StatefulWidget {
@@ -32,26 +35,17 @@ class _GestionarNinosNuevoState extends State<GestionarNinosNuevo> {
           child: ListView(
             children: [
               GestureDetector(
-                onTap: () async {
-                  FilePickerResult? result =
-                      await FilePicker.platform.pickFiles(type: FileType.image);
-
-                  if (result != null) {
-                    ImageStream file = result.files as ImageStream;
-                    //image = file as Image;
-                    //_visible = true;
-                    setState(() {});
-                  }
-                },
+                onTap: () {},
                 child: Center(
                   child: Stack(
                     children: [
                       Container(
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: AssetImage('lib/img/non.jpg'),
-                            fit: BoxFit.scaleDown,
-                          ),
+                        child: Image.memory(
+                          base64Decode(sinImagen64()),
+                          alignment: Alignment.center,
+                          fit: BoxFit.fill,
+                          width: 250,
+                          height: 250,
                         ),
                         alignment: Alignment.bottomLeft,
                         width: 250,

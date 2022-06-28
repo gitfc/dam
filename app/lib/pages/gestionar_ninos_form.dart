@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:app/providers/api.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
@@ -24,7 +23,7 @@ class _GestionarNinosFormState extends State<GestionarNinosForm> {
   TextEditingController telefonoCtrl = TextEditingController();
   String selected = "";
   final formKey = GlobalKey<FormState>();
-  int _stack = 0;
+  //int _stack = 0;
   bool _visible = false;
 
   @override
@@ -55,7 +54,7 @@ class _GestionarNinosFormState extends State<GestionarNinosForm> {
               child: ListView(
                 children: [
                   GestureDetector(
-                    onTap: () async {
+                    onTap: () {
                       /*FilePickerResult? result = await FilePicker.platform
                           .pickFiles(type: FileType.image);
 

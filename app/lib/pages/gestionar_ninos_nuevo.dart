@@ -1,8 +1,11 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:app/providers/api.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path/path.dart' as p;
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 import '../providers/image_provider.dart';
@@ -16,12 +19,16 @@ class GestionarNinosNuevo extends StatefulWidget {
 }
 
 class _GestionarNinosNuevoState extends State<GestionarNinosNuevo> {
+  final formKey = GlobalKey<FormState>();
   TextEditingController rutCtrl = TextEditingController();
   TextEditingController nombreCtrl = TextEditingController();
   TextEditingController apoderadoCtrl = TextEditingController();
   TextEditingController telefonoCtrl = TextEditingController();
   String selected = "";
-  final formKey = GlobalKey<FormState>();
+
+  /*final picker = ImagePicker();
+  final storageRef = FirebaseStorage.instance.ref();
+  late File _imagen;*/
   bool _visible = false;
 
   @override
@@ -148,17 +155,17 @@ class _GestionarNinosNuevoState extends State<GestionarNinosNuevo> {
               ),
               ElevatedButton(
                 onPressed: () async {
-                  var respuesta = JardinProvider().agregarNino(
-                    rutCtrl.text.trim(),
+                  var respuesta = await JardinProvider().agregarNino(
+                    int.tryParse(rutCtrl.text.trim()) ?? 0,
                     nombreCtrl.text.trim(),
                     apoderadoCtrl.text.trim(),
-                    telefonoCtrl.text.trim(),
-                    selected.trim(),
+                    int.tryParse(telefonoCtrl.text.trim()) ?? 0,
+                    int.parse(selected.trim()),
                     "",
                   );
 
-                  if (respuesta != null) {
-                    print("error");
+                  if (respuesta['message'] != null) {
+                    print(respuesta);
                     return;
                   }
 
@@ -211,4 +218,14 @@ class _GestionarNinosNuevoState extends State<GestionarNinosNuevo> {
       ),
     );
   }
+
+  /*Future pickImage() async {
+    XFile? image = await picker.pickImage(source: ImageSource.gallery);
+
+    if (image != null) {
+      setState(() {
+        _imagen = File(image.path);
+      });
+    }
+  }*/
 }

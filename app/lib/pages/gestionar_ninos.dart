@@ -1,12 +1,9 @@
 import 'package:app/pages/gestionar_ninos_form.dart';
 import 'package:app/pages/gestionar_ninos_nuevo.dart';
 import 'package:app/providers/api.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 import '../widgets/appbar.dart';
-import 'login_page.dart';
 
 class GestionarNinos extends StatefulWidget {
   GestionarNinos({Key? key}) : super(key: key);
@@ -42,16 +39,16 @@ class _GestionarNinosState extends State<GestionarNinos> {
                 if (i == 0) {
                   return ElevatedButton(
                     onPressed: () {
-                      MaterialPageRoute route = MaterialPageRoute(
-                        builder: (context) => GestionarNinosNuevo(),
-                      );
-                      Navigator.push(context, route);
+                      MaterialPageRoute route =
+                          MaterialPageRoute(builder: (context) {
+                        return GestionarNinosNuevo();
+                      });
+                      Navigator.push(context, route)
+                          .then((value) => setState(() {}));
                     },
-                    child: Container(
-                      child: Text(
-                        '+',
-                        style: TextStyle(fontSize: 100),
-                      ),
+                    child: Text(
+                      '+',
+                      style: TextStyle(fontSize: 100),
                     ),
                   );
                 }
@@ -84,7 +81,8 @@ class _GestionarNinosState extends State<GestionarNinos> {
                         nombre: "${nino["nombre"]}",
                       ),
                     );
-                    Navigator.push(context, route);
+                    Navigator.push(context, route)
+                        .then((value) => setState(() {}));
                   },
                 );
               },

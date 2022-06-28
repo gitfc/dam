@@ -1,4 +1,6 @@
+import 'package:app/providers/ruteo.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 import '../providers/api.dart';
@@ -38,14 +40,28 @@ class _GestionarEventosState extends State<GestionarEventos> {
                       color: Color.fromARGB(255, 255, 207, 223),
                       child: ListTile(
                         title: snap.hasData
-                            ? eventoFormat(
+                            ? RichText(
+                                text: TextSpan(
+                                  children: [
+                                    TextSpan(
+                                      text: DateFormat("yyyy-MM-dd")
+                                          .format(snap.data[index]["fecha"]),
+                                      // TODO
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    )
+                                  ],
+                                  style: TextStyle(color: Colors.black),
+                                ),
+                              )
+
+                            /*eventoFormat(
                                 snap.data[index]["fecha"].toString(),
                                 snap.data[index]["descripcion"],
-                                snap.data[index]["rut_nino"].toString())
+                                snap.data[index]["rut_nino"].toString())*/
                             : CircularProgressIndicator(),
-                        trailing: Icon(
-                          MdiIcons.fileEdit,
-                        ),
+                        trailing: Icon(MdiIcons.bookEdit),
                       ),
                     ),
                     childCount: children,
@@ -58,10 +74,10 @@ class _GestionarEventosState extends State<GestionarEventos> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          MaterialPageRoute route = MaterialPageRoute(
-            builder: (context) => GestionarEventosNuevo(),
-          );
-          Navigator.push(context, route);
+          MaterialPageRoute route = MaterialPageRoute(builder: (context) {
+            return GestionarEventosNuevo();
+          });
+          Navigator.push(context, route).then((value) => setState(() {}));
         },
         backgroundColor: Colors.red,
         child: Icon(MdiIcons.file),
@@ -79,9 +95,7 @@ class _GestionarEventosState extends State<GestionarEventos> {
         ": " +
         descripcion +
         "\nAlumno: " +
-        rut.substring(0, rut.length - 1) +
-        "-" +
-        rut.substring(rut.length - 1);
+        formatearRut(int.parse(rut));
     return Text(texto);
   }
 }

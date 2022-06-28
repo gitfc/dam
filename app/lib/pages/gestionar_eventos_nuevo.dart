@@ -1,3 +1,4 @@
+import 'package:app/providers/ruteo.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -17,6 +18,7 @@ class GestionarEventosNuevoState extends State<GestionarEventosNuevo> {
   TextEditingController rutCtrl = TextEditingController();
   TextEditingController fechaCtrl = TextEditingController();
   DateTime fechaEvento = DateTime.now();
+  int rut = 0;
 
   final formKey = GlobalKey<FormState>();
 
@@ -35,13 +37,41 @@ class GestionarEventosNuevoState extends State<GestionarEventosNuevo> {
         child: Form(
           child: ListView(
             children: [
-              TextFormField(
+              /*TextFormField(
                 controller: rutCtrl,
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                   labelText: "RUT",
                   prefixIcon: Icon(MdiIcons.idCard),
                 ),
+              ),*/
+              FutureBuilder(
+                future: JardinProvider().getTable("nino"),
+                builder: (context, AsyncSnapshot snap) {
+                  if (!snap.hasData) {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                  return DropdownButtonFormField<String>(
+                    hint: Text("Niño"),
+                    decoration: InputDecoration(
+                      prefixIcon: Icon(Icons.person),
+                    ),
+                    items: snap.data.map<DropdownMenuItem<String>>((nino) {
+                      return DropdownMenuItem<String>(
+                        child: Text(
+                            "${nino['nombre']} (${formatearRut(nino['rut'])})"),
+                        value: nino['rut'].toString(),
+                      );
+                    }).toList(),
+                    onChanged: (nuevoValor) {
+                      setState(() {
+                        rut = int.parse(nuevoValor!);
+                      });
+                    },
+                  );
+                },
               ),
               TextFormField(
                 controller: descripcionCtrl,
@@ -78,14 +108,16 @@ class GestionarEventosNuevoState extends State<GestionarEventosNuevo> {
               ),
               ElevatedButton(
                 onPressed: () async {
-                  /*var respuesta = JardinProvider().agregarEvento(
-                    
+                  var respuesta = await JardinProvider().agregarEvento(
+                    rut,
+                    descripcionCtrl.text.trim(),
+                    fechaCtrl.text.trim().replaceAll(RegExp(r'-'), ''),
                   );
 
-                  if (respuesta != null) {
-                    print("error");
+                  if (respuesta['message'] != null) {
+                    print(respuesta);
                     return;
-                  }*/
+                  }
 
                   Navigator.pop(context);
                 },

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 import '../widgets/appbar.dart';
+import 'gestionar_ninos.dart';
 import 'login_page.dart';
 
 class GestionarNinosForm extends StatefulWidget {
@@ -212,15 +213,28 @@ class _GestionarNinosFormState extends State<GestionarNinosForm> {
                     ),
                   ),
                   ElevatedButton(
-                    onPressed: () {
-                      JardinProvider().borrarNino(widget.rut).then(
+                    onPressed: () async {
+                      await JardinProvider().borrarNino(widget.rut).then(
                         (borrado) {
-                          /*if (borrado) {*/
-                          Navigator.pop(context);
-                          setState(() {});
-                          /*} else {
-                            print("error borrando");
-                          }*/
+                          if (borrado) {
+                            Navigator.pop(context);
+                            Navigator.pop(context);
+                            MaterialPageRoute route = MaterialPageRoute(
+                              builder: (context) => GestionarNinos(),
+                            );
+                            Navigator.push(context, route);
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('Niño borrado con éxito'),
+                              ),
+                            );
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('Error borrando niño'),
+                              ),
+                            );
+                          }
                         },
                       );
                     },

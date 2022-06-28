@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class TiaNivel extends Model
 {
     use HasFactory;
+
+    protected $table = 'tia_nivel';
+    public $incrementing = false;
+    public $timestamps = false;
 }

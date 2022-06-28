@@ -28,8 +28,8 @@ class JardinProvider {
     }
   }
 
-  Future<LinkedHashMap<String, dynamic>> agregarNino(String rut, String nombre,
-      String apoderado, String telefono, String id_nivel, String foto) async {
+  Future<LinkedHashMap<String, dynamic>> agregarNino(int rut, String nombre,
+      String apoderado, int telefono, int id_nivel, String foto) async {
     var uri = Uri.parse('$api/nino');
     var respuesta = await http.post(
       uri,
@@ -39,17 +39,21 @@ class JardinProvider {
       },
       body: jsonEncode(
         <String, dynamic>{
-          'rut': int.tryParse(rut),
+          'rut': rut,
           'nombre': nombre,
           'foto': null,
           'nombre_apoderado': apoderado,
-          'telefono_emergencia': int.tryParse(telefono),
-          'id_nivel': int.tryParse(id_nivel) ?? null,
+          'telefono_emergencia': telefono,
+          'id_nivel': id_nivel,
         },
       ),
     );
 
-    return json.decode(respuesta.body);
+    try {
+      return json.decode(respuesta.body);
+    } catch (ex) {
+      return {'success': true} as LinkedHashMap<String, dynamic>;
+    }
   }
 
   Future<LinkedHashMap<String, dynamic>> editarNino(String rut, String nombre,
@@ -79,5 +83,30 @@ class JardinProvider {
     var uri = Uri.parse('$api/nino/$rut');
     var respuesta = await http.delete(uri);
     return respuesta.statusCode == 200;
+  }
+
+  Future<LinkedHashMap<String, dynamic>> agregarEvento(
+      int rut, String descripcion, String fecha) async {
+    var uri = Uri.parse('$api/evento');
+    var respuesta = await http.post(
+      uri,
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Accept': 'application/json'
+      },
+      body: jsonEncode(
+        <String, dynamic>{
+          'rut': rut,
+          'descripcion': descripcion,
+          'fecha': fecha,
+        },
+      ),
+    );
+
+    try {
+      return json.decode(respuesta.body);
+    } catch (ex) {
+      return {'success': true} as LinkedHashMap<String, dynamic>;
+    }
   }
 }

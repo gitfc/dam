@@ -1,23 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-
+import 'package:flutter/material.dart';
+/*
 class FirestoreService {
-  Stream<QuerySnapshot> productos() {
-    return FirebaseFirestore.instance.collection('productos').snapshots();
-  }
-
-  Future productosAgregar(String nombre, int stock, int precio) async {
-    var productosRef = FirebaseFirestore.instance.collection('productos').doc();
-    productosRef.set({
-      'nombre': nombre,
-      'stock': stock,
-      'precio': precio,
-    });
-  }
-
-  Future productosBorrar(String productoId) {
-    return FirebaseFirestore.instance
-        .collection('productos')
-        .doc(productoId)
-        .delete();
+  Future subirFirebase(BuildContext context) async {
+    String fileName = basename(_imagen.path);
+    StorageReference firebaseStorageRef =
+        FirebaseStorage.instance.ref().child('uploads/$fileName');
+    StorageUploadTask uploadTask = firebaseStorageRef.putFile(_imageFile);
+    StorageTaskSnapshot taskSnapshot = await uploadTask.onComplete;
+    taskSnapshot.ref.getDownloadURL().then(
+          (value) => print("Done: $value"),
+        );
   }
 }
+*/

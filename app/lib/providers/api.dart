@@ -44,7 +44,7 @@ class JardinProvider {
           'foto': null,
           'nombre_apoderado': apoderado,
           'telefono_emergencia': int.tryParse(telefono),
-          'id_nivel': int.tryParse(id_nivel),
+          'id_nivel': int.tryParse(id_nivel) ?? null,
         },
       ),
     );

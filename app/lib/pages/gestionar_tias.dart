@@ -35,7 +35,7 @@ class _GestionarTiasState extends State<GestionarTias> {
                   key: Key("${tia["rut"]}"),
                   title: Text("${tia["nombre"]}"),
                   tileColor: i.isOdd ? Color(0xFFE1FFAC) : Color(0xFFCCFFC7),
-                  subtitle: Text("RUT: ${tia["rut"]}"),
+                  subtitle: Text("RUT: ${tia["rut"]} - En _ cursos"),
                   leading: Icon(MdiIcons.faceWomanProfile),
                 );
               },

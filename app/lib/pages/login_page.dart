@@ -119,6 +119,11 @@ class _LoginPageState extends State<LoginPage> {
               },
             ),
             Container(
+              padding: EdgeInsets.all(15),
+              alignment: Alignment.center,
+              child: Text('Usuario: u@gmail.com\nContraseña: 123456'),
+            ),
+            Container(
               padding: EdgeInsets.all(10),
               alignment: Alignment.center,
               child: Text(

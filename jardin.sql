@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 28-06-2022 a las 17:07:53
+-- Tiempo de generación: 29-06-2022 a las 20:53:09
 -- Versión del servidor: 10.4.21-MariaDB
 -- Versión de PHP: 8.0.11
 
@@ -40,9 +40,9 @@ CREATE TABLE `evento` (
 --
 
 INSERT INTO `evento` (`id`, `descripcion`, `fecha`, `rut_nino`, `deleted_at`) VALUES
-(1, 'Aijz  ClO4nNv Wmnh Ygj9 IHhN g m t xy ntcuyM 9P', 20210130, 213183222, NULL),
-(2, 'ASCRoLr1RjEZ jnOvaFyObA 2zKfATjtcYt jr fA', 20221113, 221908929, NULL),
-(3, 'xG Q XRt2OmoR0  Az3i NGL tP  9 3D 5I WIovl9 wth', 20190419, 213183222, NULL),
+(1, 'Aijz  ClO4nNv Wmnh Ygj9 IHhN g m t xy ntcuyM 9P Aijz  ClO4nNv Wmnh Ygj9 IHhN g m t xy ntcuyM 9P', 20210130, 213183222, NULL),
+(2, 'ASCRoLr1RjEZ jnOvaFyObA 2zKfATjtcYt jr fA ASCRoLr1RjEZ jnOvaFyObA 2zKfATjtcYt jr fA ASCRoLr1RjEZ jnOvaFyObA 2zKfATjtcYt jr fA', 20221113, 221908929, NULL),
+(3, 'xG Q XRt2OmoR0  Az3i NGL tP  9 3D 5I WIovl9 wth xG Q XRt2OmoR0  Az3i NGL tP  9 3D 5I WIovl9 wth', 20190419, 213183222, NULL),
 (4, 'i6OzfKe5h iJ 2DjYnwSh  Gvy 0   6X5PAQJJn6jf', 20220712, 219562942, NULL),
 (5, '99vbDY7XGA15Q4or81KUK7ZKqb', 20201227, 236881997, NULL),
 (6, 'sGz wSp 6o1e  Wkfyr2THQRmReA', 20191003, 231534393, NULL),

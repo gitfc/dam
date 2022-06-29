@@ -32,8 +32,12 @@ class _GestionarNivelesState extends State<GestionarNiveles> {
                 return ListTile(
                   key: Key("${nivel["id"]}"),
                   title: Text("${nivel["descripcion"]}"),
+                  subtitle: Text("Cursan ${nivel["ninos_cursando"]} niños"),
                   tileColor: i.isOdd ? Color(0xFFA09FE6) : Color(0xFFB8F4FF),
-                  leading: Text("Nivel ${nivel["id"]}"),
+                  leading: Text(
+                    "Nivel\n${nivel["id"]}",
+                    textAlign: TextAlign.center,
+                  ),
                   trailing: Icon(MdiIcons.spiritLevel),
                 );
               },

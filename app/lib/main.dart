@@ -3,6 +3,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
+import 'pages/login_page.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -25,8 +27,8 @@ class MyApp extends StatelessWidget {
           buttonColor: Colors.pink,
         ),
       ),
-      //home: LoginPage(),
-      home: MenuPage(),
+      home: LoginPage(),
+      //home: MenuPage(),
     );
   }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 import '../providers/api.dart';
+import '../providers/ruteo.dart';
 import '../widgets/appbar.dart';
 import 'gestionar_tias_nuevo.dart';
 
@@ -35,7 +36,8 @@ class _GestionarTiasState extends State<GestionarTias> {
                   key: Key("${tia["rut"]}"),
                   title: Text("${tia["nombre"]}"),
                   tileColor: i.isOdd ? Color(0xFFE1FFAC) : Color(0xFFCCFFC7),
-                  subtitle: Text("RUT: ${tia["rut"]}\nEn ### cursos"),
+                  subtitle: Text(
+                      "RUT: ${formatearRut(tia["rut"])}\nTía en ${tia["cursos"]} ${tia["cursos"] == 1 ? 'curso' : 'cursos'}"),
                   leading: Icon(MdiIcons.faceWomanProfile),
                   isThreeLine: true,
                 );

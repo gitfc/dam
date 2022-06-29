@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Tia;
 use Illuminate\Http\Request;
+use DB;
 
 class TiaController extends Controller
 {
     public function index()
     {
-        return Tia::orderBy('rut')->get();
+        return Tia::select('tia.*', DB::raw('(select count(*) from tia_nivel where tia_nivel.rut_tia = tia.rut) as cursos'))->orderBy('rut')->get();
     }
 
     public function create()

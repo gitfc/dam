@@ -23,3 +23,4 @@ Route::apiResource('/nino',NinoController::class);
 Route::apiResource('/tia',TiaController::class);
 Route::apiResource('/evento',EventoController::class);
 Route::apiResource('/nivel',NivelController::class);
+Route::apiResource('/tianivel',TiaNivelController::class);

@@ -1,9 +1,8 @@
-import 'package:app/providers/ruteo.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 import '../providers/api.dart';
+import '../providers/ruteo.dart';
 import '../widgets/appbar.dart';
 import 'gestionar_eventos_nuevo.dart';
 
@@ -20,7 +19,7 @@ class _GestionarEventosState extends State<GestionarEventos> {
     return Scaffold(
       appBar: barra('Gestionar eventos', context, false),
       body: Padding(
-        padding: EdgeInsets.only(top: 5),
+        padding: EdgeInsets.all(5),
         child: CustomScrollView(
           slivers: [
             FutureBuilder(
@@ -35,40 +34,64 @@ class _GestionarEventosState extends State<GestionarEventos> {
                 }
                 return SliverList(
                   delegate: SliverChildBuilderDelegate(
-                    (context, index) => Card(
-                      margin: EdgeInsets.all(5),
-                      color: Color.fromARGB(255, 255, 207, 223),
-                      child: ListTile(
-                        title: snap.hasData
-                            ? RichText(
-                                text: TextSpan(
-                                  children: [
-                                    TextSpan(
-                                      text: DateFormat("yyyy-MM-dd")
-                                          .format(snap.data[index]["fecha"]),
-                                      // TODO
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    )
-                                  ],
-                                  style: TextStyle(color: Colors.black),
+                    (context, index) {
+                      if (snap.hasData) {
+                        var evento = snap.data[index];
+                        return Card(
+                          margin: EdgeInsets.all(5),
+                          color: Color.fromARGB(255, 255, 207, 223),
+                          child: Padding(
+                            padding: EdgeInsets.all(5),
+                            child: RichText(
+                              text: TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: evento["nombre"],
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text:
+                                        ' (${formatearRut(evento["rut_nino"])}) ',
+                                  ),
+                                  TextSpan(
+                                    text: evento["fecha"]
+                                            .toString()
+                                            .substring(6) +
+                                        "-" +
+                                        evento["fecha"]
+                                            .toString()
+                                            .substring(4, 6) +
+                                        "-" +
+                                        evento["fecha"]
+                                            .toString()
+                                            .substring(0, 4) +
+                                        ": ",
+                                  ),
+                                  TextSpan(
+                                    text: evento["descripcion"],
+                                  )
+                                ],
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 16,
                                 ),
-                              )
-
-                            /*eventoFormat(
-                                snap.data[index]["fecha"].toString(),
-                                snap.data[index]["descripcion"],
-                                snap.data[index]["rut_nino"].toString())*/
-                            : CircularProgressIndicator(),
-                        trailing: Icon(MdiIcons.bookEdit),
-                      ),
-                    ),
+                              ),
+                              maxLines: 2,
+                              overflow: TextOverflow.fade,
+                            ),
+                          ),
+                        );
+                      } else {
+                        return CircularProgressIndicator();
+                      }
+                    },
                     childCount: children,
                   ),
                 );
               },
-            ),
+            )
           ],
         ),
       ),
@@ -83,19 +106,5 @@ class _GestionarEventosState extends State<GestionarEventos> {
         child: Icon(MdiIcons.file),
       ),
     );
-  }
-
-  eventoFormat(String fecha, String descripcion, String rut) {
-    DateTime ff = DateTime.parse(fecha);
-    String texto = ff.day.toString() +
-        "/" +
-        ff.month.toString() +
-        "/" +
-        ff.year.toString() +
-        ": " +
-        descripcion +
-        "\nAlumno: " +
-        formatearRut(int.parse(rut));
-    return Text(texto);
   }
 }

@@ -6,7 +6,6 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 
 import '../widgets/appbar.dart';
 import 'gestionar_ninos.dart';
-import 'login_page.dart';
 
 class GestionarNinosForm extends StatefulWidget {
   final rut;
@@ -139,7 +138,6 @@ class _GestionarNinosFormState extends State<GestionarNinosForm> {
                       labelText: "Nombre",
                       prefixIcon: Icon(MdiIcons.humanChild),
                     ),
-                    //enabled: false,
                   ),
                   TextFormField(
                     controller: apoderadoCtrl,
@@ -147,7 +145,6 @@ class _GestionarNinosFormState extends State<GestionarNinosForm> {
                       labelText: "Nombre de apoderado",
                       prefixIcon: Icon(MdiIcons.human),
                     ),
-                    //enabled: false,
                   ),
                   TextFormField(
                     controller: telefonoCtrl,
@@ -156,7 +153,6 @@ class _GestionarNinosFormState extends State<GestionarNinosForm> {
                       labelText: "Teléfono de emergencia",
                       prefixIcon: Icon(MdiIcons.phone),
                     ),
-                    //enabled: false,
                   ),
                   FutureBuilder(
                     future: JardinProvider().getTable("nivel"),

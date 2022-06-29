@@ -9,7 +9,7 @@ class EventoController extends Controller
 {
     public function index()
     {
-        return Evento::orderBy('fecha', 'desc')->get();
+        return Evento::select('evento.*', 'nino.nombre')->join('nino', 'nino.rut', '=', 'evento.rut_nino')->orderBy('fecha', 'desc')->get();
     }
 
     public function store(Request $request)
